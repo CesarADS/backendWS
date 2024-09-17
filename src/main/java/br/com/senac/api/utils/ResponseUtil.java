@@ -9,6 +9,7 @@ public class ResponseUtil {
         response.put("messages", message);
 
         System.out.println("Teste git 2");
+        System.out.println("Teste da branch nova");
         return response;
     }
 }
