@@ -1,6 +1,8 @@
 package br.com.senac.api.controller;
 
+import br.com.senac.api.entitys.Produtos;
 import br.com.senac.api.entitys.Usuarios;
+import com.google.gson.Gson;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +21,9 @@ public class HelloWordController {
 
     @Autowired
     private JmsTemplate jmsTemplate;
+
+    @Autowired
+    private Gson gson;
 
     Logger logger = LoggerFactory.getLogger(HelloWordController.class);
 
@@ -46,6 +51,14 @@ public class HelloWordController {
 
         return ResponseEntity.ok("");
 
+    }
+
+    @PostMapping("/criar_mensagem_produto")
+    public ResponseEntity<?> geraMensagemProduto(@RequestBody Produtos produto) {
+
+        jmsTemplate.convertAndSend("teste_fila_objeto", gson.toJson(produto));
+
+        return ResponseEntity.ok("");
     }
 
 
